@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Información Educativa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-1: #1E3370; /* Azul Base */
+            --color-2: #00829a; /* Teal Complementario */
+            --color-3: #5e35b1; /* Púrpura Real */
+            --text-dark: #1d1d1f;
+            --apple-gray: #f5f5f7;
+        }
+
+        /* --- CENTRADO TOTAL --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: transparent;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .main-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* --- INSTRUCCIÓN FLOTANTE --- */
+        .instruction {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            font-weight: 400;
+            color: #86868b;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            z-index: 1000;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            animation: fadeIn 1.5s ease;
+        }
+
+        /* --- GRID RESPONSIVO --- */
+        .grid-container {
+            display: grid;
+            gap: 20px;
+            width: 100%;
+        }
+
+        @media (min-width: 1025px) {
+            .grid-container { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (min-width: 601px) and (max-width: 1024px) {
+            .grid-container { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .grid-container { grid-template-columns: 1fr; }
+            .instruction { 
+                top: auto; 
+                bottom: 20px; 
+                right: 50%; 
+                transform: translateX(50%); 
+                width: max-content;
+            }
+        }
+
+        /* --- DISEÑO DE TARJETAS --- */
+        .card {
+            position: relative;
+            height: 220px;
+            border-radius: 28px;
+            cursor: pointer;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 25px;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-1 { background: linear-gradient(135deg, var(--color-1), #3a5cc0); }
+        .card-2 { background: linear-gradient(135deg, var(--color-2), #00d4ff); }
+        .card-3 { background: linear-gradient(135deg, var(--color-3), #9c27b0); }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: -20%;
+            right: -20%;
+            width: 120px;
+            height: 120px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: all 0.5s ease;
+        }
+
+        .card:hover::before { transform: scale(1.5); background: rgba(255, 255, 255, 0.2); }
+
+        .card h3 { color: white; font-weight: 600; font-size: 1.1rem; line-height: 1.3; z-index: 1; }
+
+        .card span {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+            z-index: 1;
+        }
+
+        /* --- MODALES --- */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 60px 40px;
+            border-radius: 40px;
+            max-width: 750px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            text-align: left;
+            line-height: 1.6;
+            animation: modalSlideUp 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            width: 40px;
+            height: 40px;
+            background: var(--apple-gray);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover { background: #e8e8ed; }
+
+        .modal-header { font-size: 2rem; color: var(--text-dark); margin-bottom: 30px; line-height: 1.1; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes modalSlideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <p class="instruction">Haga clic sobre la tarjeta para ampliar la información.</p>
+
+    <div class="main-wrapper">
+        <div class="grid-container">
+            <div class="card card-1" onclick="openModal('m1')">
+                <span>CONCEPTO 01</span>
+                <h3>Estandarización</h3>
+            </div>
+            <div class="card card-2" onclick="openModal('m2')">
+                <span>CONCEPTO 02</span>
+                <h3>Guía para el docente</h3>
+            </div>
+            <div class="card card-3" onclick="openModal('m3')">
+                <span>CONCEPTO 03</span>
+                <h3>Rendición de cuentas</h3>
+            </div>
+        </div>
+    </div>
+
+    <div id="m1" class="modal">
+        <div class="modal-content">
+            <div class="close-btn" onclick="closeModal('m1')">✕</div>
+            <h2 class="modal-header">Estandarización</h2>
+            <p>Asegura un mínimo común de conocimientos y habilidades que todos los estudiantes deben alcanzar.</p>
+        </div>
+    </div>
+
+    <div id="m2" class="modal">
+        <div class="modal-content">
+            <div class="close-btn" onclick="closeModal('m2')">✕</div>
+            <h2 class="modal-header">Guía para el docente</h2>
+            <p>Proporciona un marco de referencia que orienta la práctica pedagógica en el aula.</p>
+        </div>
+    </div>
+
+    <div id="m3" class="modal">
+        <div class="modal-content">
+            <div class="close-btn" onclick="closeModal('m3')">✕</div>
+            <h2 class="modal-header">Rendición de cuentas</h2>
+            <p>Permite a la sociedad y al Estado evaluar el sistema educativo basándose en los objetivos declarados.</p>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = "none";
+                document.body.style.overflow = 'auto';
+            }
+        }
+    </script>
+</body>
+</html>
