@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historia de la Pedagogía</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gold: #c5a059;
+            --dark-bg: #0f0f0f;
+            --glass: rgba(255, 255, 255, 0.1);
+            --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background-image: radial-gradient(circle, #1a1a1a 0%, #000 100%);
+        }
+
+        /* --- INSTRUCCIÓN FLOTANTE --- */
+        .instruction {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            color: var(--primary-gold);
+            font-size: 0.9rem;
+            border: 1px solid rgba(197, 160, 89, 0.4);
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            pointer-events: none;
+            animation: fadeInOut 3s ease-in-out infinite;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            perspective: 1000px;
+        }
+
+        /* --- TARJETAS --- */
+        .card {
+            width: 300px;
+            height: 450px;
+            position: relative;
+            cursor: pointer;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            transition: var(--transition);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: var(--primary-gold);
+            box-shadow: 0 30px 60px rgba(197, 160, 89, 0.2);
+        }
+
+        .card-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: grayscale(80%) sepia(30%) brightness(0.6);
+            transition: var(--transition);
+        }
+
+        .card:hover .card-bg {
+            filter: grayscale(0%) brightness(0.8);
+            transform: scale(1.1);
+        }
+
+        .card-content {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9));
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .card-content h2 {
+            margin: 0;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            color: var(--primary-gold);
+        }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            border: 2px solid var(--primary-gold);
+            width: 90%;
+            max-width: 600px;
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+            transform: scale(0.7) rotateX(-20deg);
+            transition: var(--transition);
+            box-shadow: 0 0 100px rgba(197, 160, 89, 0.3);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) rotateX(0deg);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: var(--primary-gold);
+            font-size: 30px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .modal-body h3 {
+            color: var(--primary-gold);
+            margin-top: 0;
+            border-bottom: 1px solid var(--primary-gold);
+            padding-bottom: 10px;
+        }
+
+        .modal-body p {
+            line-height: 1.8;
+            font-weight: 300;
+            text-align: left;
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 5px;
+        }
+        .modal-content::-webkit-scrollbar-thumb {
+            background: var(--primary-gold);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="instruction">Haga clic sobre las tarjetas para ampliar la información.</div>
+
+<div class="container">
+    <div class="card" onclick="openModal('piaget')">
+        <div class="card-bg" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/6/67/Jean_Piaget_in_Ann_Arbor.png');"></div>
+        <div class="card-content">
+            <h2>Jean Piaget (1952)</h2>
+            <p>Desarrollo Cognitivo</p>
+        </div>
+    </div>
+
+    <div class="card" onclick="openModal('bruner')">
+        <div class="card-bg" style="background-image: url('https://pavlov.psyciencia.com/2016/06/bruner-obit-jerome.jpg');"></div>
+        <div class="card-content">
+            <h2>Jerome Bruner (1960)</h2>
+            <p>Aprendizaje por Descubrimiento</p>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div id="modalBody" class="modal-body">
+            </div>
+    </div>
+</div>
+
+<script>
+    const data = {
+        piaget: `
+            <h3>(Piaget, 1952) y el desarrollo cognitivo</h3>
+            <p>Piaget sostuvo que el desarrollo ocurre en etapas secuenciales (sensoriomotora, preoperacional, operaciones concretas, operaciones formales) y que el aprendizaje es un proceso de adaptación a través de la asimilación (integrar nueva información a esquemas existentes) y la acomodación (modificar los esquemas existentes). <b>Influencia curricular:</b> el currículo debe ser psicológicamente adecuado o concordante con el desarrollo (developmentmentally appropriate). La enseñanza de un concepto debe respetar el nivel de pensamiento del estudiante; por ejemplo, la enseñanza de nociones abstractas (como el infinito en matemáticas) solo puede ocurrir una vez alcanzado el estadio de las operaciones formales. <b>Diseño curricular:</b> fomenta un currículo centrado en el estudiante, donde el docente actúa como facilitador de las experiencias que permiten la construcción activa del conocimiento.</p>
+        `,
+        bruner: `
+            <h3>(Bruner, 1960) y el Aprendizaje por descubrimiento</h3>
+            <p>Bruner popularizó la idea de que la estructura del conocimiento es más importante que el mero contenido fáctico. Su concepto de currículo en espiral es crucial; afirma que el contenido debe organizarse de modo que los temas complejos se aborden en niveles de complejidad creciente a lo largo de los años. Los conceptos se revisan periódicamente, pero siempre con mayor profundidad y abstracción (ej. el concepto de función matemática se introduce en primaria de forma intuitiva, y se formaliza con el cálculo en el nivel superior).</p>
+        `
+    };
+
+    function openModal(author) {
+        const overlay = document.getElementById('modalOverlay');
+        const body = document.getElementById('modalBody');
+        body.innerHTML = data[author];
+        overlay.style.display = 'flex';
+        setTimeout(() => overlay.classList.add('active'), 10);
+    }
+
+    function closeModal() {
+        const overlay = document.getElementById('modalOverlay');
+        overlay.classList.remove('active');
+        setTimeout(() => overlay.style.display = 'none', 400);
+    }
+
+    window.onclick = function(event) {
+        const overlay = document.getElementById('modalOverlay');
+        if (event.target == overlay) closeModal();
+    }
+</script>
+
+</body>
+</html>
