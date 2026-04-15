@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teorías de Reproducción Social - Interactivo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #020617;
+            --glass: rgba(15, 23, 42, 0.7);
+            --primary: #0ea5e9;
+            --secondary: #38bdf8;
+            --accent: #22d3ee;
+            --text: #f1f5f9;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg);
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(34, 211, 238, 0.1) 0%, transparent 40%);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            overflow-x: hidden;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 60px;
+            z-index: 10;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(14, 165, 233, 0.4));
+        }
+
+        .container {
+            max-width: 1100px;
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 40px;
+            position: relative;
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0.5;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(14, 165, 233, 0.2);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 30px;
+            line-height: 1.3;
+            min-height: 3.5rem;
+        }
+
+        .info-item {
+            margin-bottom: 25px;
+            opacity: 0.8;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .info-item::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 10px;
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .info-item:hover {
+            opacity: 1;
+            transform: translateX(5px);
+        }
+
+        .label {
+            display: block;
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-weight: 300;
+        }
+
+        .scan-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            animation: scan 4s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>Mecanismos de Reproducción</h1>
+    </div>
+
+    <div class="container">
+        <div class="card" onclick="this.classList.toggle('active')">
+            <div class="scan-line"></div>
+            <h2>Louis Althusser y los Aparatos Ideológicos del Estado (AIE)</h2>
+            
+            <div class="info-item">
+                <span class="label">Tesis central:</span>
+                <p>en su ensayo Ideología y aparatos ideológicos del Estado (Althusser, 1970), postuló que la superestructura de la sociedad se mantiene a través de Aparatos Represivos del Estado (ARE) (ejército, policía) y, de forma más efectiva, a través de los Aparatos Ideológicos del Estado (AIE).</p>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Rol de la escuela:</span>
+                <p>Althusser identifica la escuela como el AIE dominante en las sociedades capitalistas. Su función es la reproducción de las relaciones de producción a través de la inculcación de la ideología dominante.</p>
+            </div>
+
+            <div class="info-item">
+                <span class="label">El currículo en la reproducción:</span>
+                <p>el currículo, tanto explícito como oculto, inculca habilidades técnicas para el trabajo y, más importante, la ideología necesaria para someterse al sistema (obediencia, docilidad, respeto a la autoridad, creencia en la meritocracia).</p>
+            </div>
+        </div>
+
+        <div class="card" onclick="this.classList.toggle('active')">
+            <div class="scan-line"></div>
+            <h2>Pierre Bourdieu, Jean-Claude Passeron y la violencia simbólica</h2>
+
+            <div class="info-item">
+                <span class="label">Tesis central:</span>
+                <p>Bourdieu y Passeron (1970) enfocaron su análisis en los mecanismos culturales a través de los cuales la escuela legitima la desigualdad.</p>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Capital cultural:</span>
+                <p>introducen el concepto de capital cultural, que es el conjunto de conocimientos, modales, disposiciones estéticas y lingüísticas que son valorados por la escuela y que son adquiridos principalmente en el seno de la clase dominante.</p>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Violencia simbólica:</span>
+                <p>la escuela ejerce violencia simbólica al imponer el capital cultural dominante como el único "válido" o "universal". Al hacerlo, el currículo automáticamente desvaloriza el capital cultural de las clases populares. Cuando los estudiantes de estas clases fracasan, lo atribuyen a su "falta de talento" o "esfuerzo" individual, y no a la arbitrariedad de la selección curricular, logrando así la legitimación de la desigualdad.</p>
+            </div>
+
+            <div class="info-item">
+                <span class="label">Implicación curricular:</span>
+                <p>el currículo, al no reconocer las formas de conocimiento y expresión cultural de los grupos marginados, garantiza que solo los herederos del capital cultural legítimo tengan éxito.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Efecto sutil de seguimiento de mouse en las tarjetas
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+                
+                // Efecto de brillo siguiendo al cursor
+                card.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(14, 165, 233, 0.15) 0%, var(--glass) 80%)`;
+            });
+
+            card.addEventListener('mouseleave', () => {
+                card.style.background = `var(--glass)`;
+            });
+        });
+    </script>
+</body>
+</html>
