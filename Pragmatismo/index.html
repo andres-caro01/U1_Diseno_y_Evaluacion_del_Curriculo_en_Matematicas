@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dewey - Alineación Izquierda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #02060a;
+            --card-bg: rgba(10, 20, 35, 0.8);
+            --neon-cyan: #00f2ff;
+            --text-main: #e2e8f0;
+            --glass-border: rgba(0, 242, 255, 0.15);
+        }
+
+        /* Animación Cyber-Unfold */
+        @keyframes cyberUnfold {
+            0% {
+                opacity: 0;
+                transform: rotateY(-90deg) scaleX(0);
+                filter: brightness(2);
+            }
+            100% {
+                opacity: 1;
+                transform: rotateY(0deg) scaleX(1);
+                filter: brightness(1);
+            }
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+            color: var(--text-main);
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 40px 20px;
+            perspective: 1200px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            border-left: 3px solid var(--neon-cyan); /* Acento lateral */
+            border-radius: 4px 15px 15px 4px;
+            padding: 35px;
+            position: relative;
+            overflow: hidden;
+            
+            /* Animación */
+            opacity: 0;
+            transform-origin: left center;
+            animation: cyberUnfold 1s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            
+            /* Alineación general de la tarjeta */
+            text-align: left; 
+        }
+
+        .card:nth-child(1) { animation-delay: 0.1s; }
+        .card:nth-child(2) { animation-delay: 0.3s; }
+        .card:nth-child(3) { animation-delay: 0.5s; }
+
+        .card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.15);
+            transform: translateX(5px);
+        }
+
+        h2 {
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--neon-cyan);
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: left; /* Título a la izquierda */
+        }
+
+        p {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #cbd5e1;
+            margin: 0;
+            text-align: left; /* Texto a la izquierda */
+        }
+
+        i {
+            color: #fff;
+            font-style: italic;
+        }
+
+        /* Detalle decorativo de código en la esquina */
+        .card::after {
+            
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-size: 0.6rem;
+            color: var(--neon-cyan);
+            opacity: 0.3;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <article class="card">
+            <h2>La filosofía de la experiencia</h2>
+            <p>En su obra <i>Democracy and Education</i> (Dewey, 1916), sostiene que la educación no es una preparación para la vida futura, sino la vida misma. El currículo debe ser un medio para la reconstrucción continua de la experiencia del estudiante. El conocimiento, por tanto, no es un fin en sí mismo, sino una herramienta para la resolución de problemas (instrumentalismo).</p>
+        </article>
+
+        <article class="card">
+            <h2>Currículo integrado y flexible</h2>
+            <p>Dewey critica el currículo tradicional por sus dualismos rígidos (mente/cuerpo, teoría/práctica, asignatura/estudiante). Propone un currículo centrado en el niño y en los problemas de la vida real, que fomente el método científico y la integración de las disciplinas. Este enfoque fue clave para el desarrollo del currículo como proceso y no solo como producto.</p>
+        </article>
+
+        <article class="card">
+            <h2>Ideal formativo democrático</h2>
+            <p>El fin último es formar un individuo reflexivo, crítico y activo, capaz de participar en una sociedad democrática y de mejorarla. La escuela debe ser una comunidad en miniatura que simule los procesos de deliberación y acción social.</p>
+        </article>
+    </div>
+
+</body>
+</html>
