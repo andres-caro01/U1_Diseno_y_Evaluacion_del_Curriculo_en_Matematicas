@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider Pedagogía Crítica Freire</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        /* --- Variables de Diseño Moderno/Futurista (Escala de Azules) --- */
+        :root {
+            --bg-dark: #050a14;            /* Fondo casi negro */
+            --bg-card-1: #0a192f;          /* Azul muy oscuro para slide 1 */
+            --bg-card-2: #001233;          /* Azul profundo diferente para slide 2 */
+            --primary-cyan: #00d4ff;       /* Cian eléctrico para acentos y títulos */
+            --text-main: #e6f1ff;          /* Blanco azulado para texto general */
+            --glass-border: rgba(0, 212, 255, 0.2); /* Borde sutil cian */
+            --glow: 0 0 20px rgba(0, 212, 255, 0.3);  /* Efecto de resplandor */
+            --transition: all 0.5s ease-in-out;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Evita scrolls no deseados */
+        }
+
+        /* --- Instrucción Flotante Superior Derecha --- */
+        .instruction {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            background: rgba(10, 25, 47, 0.8);
+            backdrop-filter: blur(10px); /* Efecto cristal esmerilado */
+            padding: 12px 24px;
+            border-radius: 50px;
+            border: 1px solid var(--primary-cyan);
+            font-size: 0.85rem;
+            color: var(--text-main);
+            box-shadow: var(--glow);
+            z-index: 100; /* Asegura que esté por encima */
+            pointer-events: none; /* No interfiere con clics */
+        }
+
+        /* --- Contenedor Principal del Slider --- */
+        .slider-container {
+            position: relative;
+            width: 80%;
+            max-width: 900px;
+            height: 70vh; /* Altura fija para el contenido */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- Estilos Generales de cada Slide --- */
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            padding: 50px;
+            border-radius: 24px;
+            border: 1px solid var(--glass-border);
+            text-align: left; /* Alineación a la izquierda */
+            
+            /* Estado inicial: oculto y transparente */
+            opacity: 0;
+            visibility: hidden;
+            transform: scale(0.95);
+            transition: var(--transition);
+            
+            /* Flex para centrar contenido verticalmente */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+        }
+
+        /* --- Estado Activo del Slide (Visible) --- */
+        .slide.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            z-index: 10;
+        }
+
+        /* --- Estilos Específicos por Slide (Escala de Azules) --- */
+        #slide-1 {
+            background-color: var(--bg-card-1);
+        }
+
+        #slide-2 {
+            background-color: var(--bg-card-2);
+            border-color: rgba(0, 212, 255, 0.4); /* Borde un poco más brillante */
+        }
+
+        /* --- Tipografía y Elementos de Texto --- */
+        h2 {
+            color: var(--primary-cyan);
+            font-size: 2.2rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+        }
+
+        p {
+            font-size: 1.1rem;
+            font-weight: 300;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        ul {
+            list-style: none; /* Quitamos viñetas estándar */
+            padding-left: 5px;
+        }
+
+        li {
+            font-size: 1.05rem;
+            font-weight: 300;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            position: relative;
+            padding-left: 25px;
+        }
+
+        /* Viñetas personalizadas futuristas (guiones cian) */
+        li::before {
+            content: "—";
+            color: var(--primary-cyan);
+            position: absolute;
+            left: 0;
+            font-weight: 600;
+        }
+
+        strong {
+            color: var(--primary-cyan);
+            font-weight: 600;
+        }
+
+        /* --- Base de Navegación Inferior --- */
+        .navigation-dock {
+            position: absolute;
+            bottom: -80px; /* Separación del contenedor de texto */
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 10px 20px;
+            background: rgba(10, 25, 47, 0.6);
+            border-radius: 50px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(5px);
+        }
+
+        /* Botones de Flecha */
+        .nav-btn {
+            background: none;
+            border: 1px solid var(--primary-cyan);
+            color: var(--primary-cyan);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.3rem;
+            box-shadow: var(--glow);
+        }
+
+        .nav-btn:hover {
+            background-color: var(--primary-cyan);
+            color: var(--bg-dark);
+            box-shadow: 0 0 25px var(--primary-cyan);
+        }
+
+        /* Indicador de Número de Slide */
+        .slide-indicator {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            font-weight: 400;
+            letter-spacing: 2px;
+            user-select: none;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="instruction">
+        Haga clic sobre los botones de navegación para ampliar la información.
+    </div>
+
+    <div class="slider-container">
+        
+        <div class="slide active" id="slide-1">
+            <h2>Crítica a la "educación bancaria"</h2>
+            <p>Freire identificó el modelo educativo tradicional como una "educación bancaria", donde:</p>
+            <ul>
+                <li>El docente es el depositario del conocimiento.</li>
+                <li>El estudiante es el recipiente pasivo que debe "archivar" la información sin reflexión.</li>
+                <li><strong>Implicación curricular:</strong> este modelo es inherentemente opresivo, ya que niega la capacidad de pensamiento crítico del estudiante y perpetúa la cultura del silencio y la obediencia.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-2">
+            <h2>La pedagogía como acto de libertad y diálogo</h2>
+            <p>Freire propuso una educación basada en el diálogo y la <strong>praxis</strong> (reflexión y acción). El currículo, para Freire, debe ser un acto de libertad que conduzca a la concientización (conscientização).</p>
+            <ul>
+                <li><strong>Concientización:</strong> es el proceso por el cual los oprimidos toman conciencia de las causas de su situación y se movilizan para transformarla.</li>
+                <li><strong>Currículo generador:</strong> el contenido curricular no debe ser impuesto por expertos, sino que debe surgir de los temas generadores extraídos de la realidad existencial de los estudiantes.</li>
+            </ul>
+        </div>
+
+        <div class="navigation-dock">
+            <button class="nav-btn" id="prevBtn" onclick="changeSlide(-1)">&#10094;</button>
+            <div class="slide-indicator" id="indicator">1 / 2</div>
+            <button class="nav-btn" id="nextBtn" onclick="changeSlide(1)">&#10095;</button>
+        </div>
+
+    </div>
+
+    <script>
+        let currentSlideIndex = 0; // Empieza en el primer slide (índice 0)
+        const slides = document.querySelectorAll('.slide');
+        const totalSlides = slides.length;
+        const indicator = document.getElementById('indicator');
+
+        function changeSlide(direction) {
+            // Ocultar slide actual
+            slides[currentSlideIndex].classList.remove('active');
+
+            // Calcular nuevo índice (con bucle: del último vuelve al primero)
+            currentSlideIndex = (currentSlideIndex + direction + totalSlides) % totalSlides;
+
+            // Mostrar nuevo slide
+            slides[currentSlideIndex].classList.add('active');
+
+            // Actualizar indicador de número (índice + 1 para humanos)
+            indicator.innerText = `${currentSlideIndex + 1} / ${totalSlides}`;
+        }
+    </script>
+</body>
+</html>
