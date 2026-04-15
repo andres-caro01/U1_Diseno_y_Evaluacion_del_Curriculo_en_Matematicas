@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perspectivas sobre el Aprendizaje - Tech Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-dark: #0a0e17;
+            --panel-bg: rgba(16, 23, 39, 0.85);
+            --primary-neon: #00f2fe;
+            --secondary-neon: #4facfe;
+            --text-main: #e0e6ed;
+            --text-muted: #8899a6;
+            --glow-light: 0 0 12px rgba(0, 242, 254, 0.4);
+            --border-tech: 1px solid rgba(0, 242, 254, 0.3);
+            /* Fuente Poppins para todo */
+            --font-main: 'Poppins', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(79, 172, 254, 0.1) 0px, transparent 50%),
+                radial-gradient(at 90% 90%, rgba(0, 242, 254, 0.05) 0px, transparent 50%);
+            color: var(--text-main);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- Barra de Instrucción --- */
+        .instruction-bar {
+            width: 100%;
+            text-align: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+        }
+
+        .instruction-text {
+            color: var(--primary-neon);
+            font-size: 1.1rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            text-shadow: var(--glow-light);
+            animation: pulseFade 2.5s infinite ease-in-out;
+        }
+
+        /* --- Contenedor --- */
+        .main-container {
+            display: flex;
+            width: 90%;
+            max-width: 1000px;
+            gap: 25px;
+            align-items: flex-start;
+        }
+
+        /* --- Botones --- */
+        .sidebar {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .tab-btn {
+            font-family: var(--font-main);
+            background-color: var(--panel-bg);
+            color: var(--text-main);
+            border: var(--border-tech);
+            padding: 22px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.95rem;
+            font-weight: 500;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .tab-btn:hover {
+            border-color: var(--primary-neon);
+            background: rgba(0, 242, 254, 0.05);
+            transform: translateX(8px);
+            box-shadow: var(--glow-light);
+        }
+
+        .tab-btn.active {
+            background: linear-gradient(135deg, rgba(79, 172, 254, 0.2), rgba(0, 242, 254, 0.1));
+            color: #fff;
+            border-color: var(--primary-neon);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+            font-weight: 700;
+        }
+
+        /* --- Área de Contenido --- */
+        .content-area {
+            flex: 2;
+            background-color: var(--panel-bg);
+            border: var(--border-tech);
+            border-radius: 16px;
+            padding: 45px;
+            min-height: 380px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(12px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Decoración sutil */
+        .content-area::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary-neon);
+            opacity: 0.3;
+        }
+
+        .content-card {
+            display: none;
+            animation: fadeInBlur 0.6s ease-out forwards;
+        }
+
+        .content-card.active {
+            display: block;
+        }
+
+        .content-card h2 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 0;
+            margin-bottom: 25px;
+            letter-spacing: -0.5px;
+        }
+
+        .content-card p {
+            line-height: 1.8;
+            font-weight: 300;
+            font-size: 1.05rem;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        .content-card b {
+            color: var(--primary-neon);
+            font-weight: 600;
+        }
+
+        /* --- Animaciones --- */
+        @keyframes pulseFade {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes fadeInBlur {
+            from { opacity: 0; transform: translateY(15px); filter: blur(10px); }
+            to { opacity: 1; transform: translateY(0); filter: blur(0); }
+        }
+
+        .placeholder {
+            display: flex;
+            height: 300px;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-muted);
+            font-weight: 300;
+            font-style: italic;
+        }
+
+        /* Responsivo */
+        @media (max-width: 768px) {
+            .main-container { flex-direction: column; }
+            .sidebar { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="instruction-bar">
+        <div class="instruction-text">Haga clic sobre los botones para ampliar la información</div>
+    </div>
+
+    <div class="main-container">
+        <div class="sidebar">
+            <button class="tab-btn" onclick="showTab('skinner')" id="btn-skinner">
+                (Skinner, 1953)
+            </button>
+            <button class="tab-btn" onclick="showTab('gagne')" id="btn-gagne">
+                (Gagné, 1970) y la Jerarquía de Aprendizaje
+            </button>
+        </div>
+
+        <div class="content-area">
+            <div id="placeholder" class="placeholder">
+                <p>Seleccione una teoría en el panel izquierdo...</p>
+            </div>
+
+            <div id="skinner" class="content-card">
+                <h2>(Skinner, 1953)</h2>
+                <p>El aprendizaje es un cambio en la probabilidad de una respuesta provocado por el reforzamiento.</p>
+                <p><b>Influencia curricular:</b> se tradujo en la exigencia de definir los objetivos en términos conductuales observables y medibles (objetivos operativos o Magerian).</p>
+                <p><b>Diseño curricular:</b> el currículo debe ser estrictamente secuencial y fragmentado en pequeñas unidades de contenido (ej., el aprendizaje programado).</p>
+                <p>La evaluación es constante y sumativa, midiendo la adquisición de habilidades específicas y discretas.</p>
+            </div>
+
+            <div id="gagne" class="content-card">
+                <h2>(Gagné, 1970) y la Jerarquía de Aprendizaje</h2>
+                <p>Gagné proporcionó una de las estructuras más influyentes para la secuenciación del contenido.</p>
+                <p>Propuso que el aprendizaje sigue una jerarquía <b>(desde el aprendizaje de señales hasta la resolución de problemas)</b>.</p>
+                <p>Este enfoque justifica la rigidez en la organización de los contenidos, ya que un aprendizaje superior solo puede ocurrir si se han dominado los aprendizajes inferiores. Es la base para la secuenciación de muchas áreas, incluyendo las matemáticas.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            // Reset de estados
+            document.querySelectorAll('.content-card').forEach(card => card.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            
+            // Ocultar mensaje inicial
+            document.getElementById('placeholder').style.display = 'none';
+            
+            // Mostrar contenido con animación
+            const target = document.getElementById(tabId);
+            target.classList.add('active');
+            
+            // Activar botón
+            document.getElementById('btn-' + tabId).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
