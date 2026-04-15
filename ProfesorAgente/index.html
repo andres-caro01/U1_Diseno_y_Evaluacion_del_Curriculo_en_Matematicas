@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enfoques Curriculares - Tech Interface</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            /* Paleta de colores ajustada a tonos azulados */
+            --primary-blue: #00d4ff;
+            --dark-bg: #020c1b;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --neon-border: rgba(0, 212, 255, 0.3);
+            --accent-blue: #0077b6;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(0, 212, 255, 0.1) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(2, 62, 138, 0.2) 0%, transparent 40%);
+            color: #e0e1dd;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Contenedor Principal */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            flex-grow: 1;
+            gap: 20px;
+            padding: 20px;
+            padding-bottom: 60px; /* Espacio para la instrucción flotante */
+        }
+
+        /* Sidebar con botones */
+        .sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .nav-btn {
+            background: var(--glass-bg);
+            border: 1px solid var(--neon-border);
+            padding: 15px 20px;
+            border-radius: 12px;
+            color: #fff;
+            text-align: left;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(10px);
+            opacity: 0;
+            transform: translateX(-50px);
+            position: relative;
+            overflow: hidden;
+            font-weight: 600;
+        }
+
+        .nav-btn::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background: var(--primary-blue);
+            transform: scaleY(0);
+            transition: transform 0.3s;
+        }
+
+        .nav-btn:hover {
+            transform: translateX(10px);
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .nav-btn.active {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: var(--primary-blue);
+            transform: translateX(15px);
+        }
+
+        .nav-btn.active::before {
+            transform: scaleY(1);
+        }
+
+        /* Animación de entrada para botones */
+        .sidebar .nav-btn:nth-child(1) { animation: slideIn 0.5s forwards 0.1s; }
+        .sidebar .nav-btn:nth-child(2) { animation: slideIn 0.5s forwards 0.2s; }
+        .sidebar .nav-btn:nth-child(3) { animation: slideIn 0.5s forwards 0.3s; }
+
+        @keyframes slideIn {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Área de Contenido */
+        .content-area {
+            background: var(--glass-bg);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            padding: 40px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-card {
+            display: none;
+            max-width: 750px;
+            animation: fadeInBlur 0.6s ease-out forwards;
+        }
+
+        .content-card.active {
+            display: block;
+        }
+
+        @keyframes fadeInBlur {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+                filter: blur(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+        }
+
+        .tech-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: #0077b6;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 700;
+            color: #caf0f8;
+        }
+
+        h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #fff, #00d4ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 15px;
+            margin-top: -10px;
+        }
+
+        p {
+            line-height: 1.8;
+            font-size: 1.05rem;
+            color: #a9bcd0;
+            margin-bottom: 15px;
+        }
+
+        p em {
+            color: #e0e1dd;
+            font-style: italic;
+        }
+
+        /* Decoración */
+        .bg-ornament {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border: 2px solid var(--primary-blue);
+            border-radius: 50%;
+            opacity: 0.1;
+            top: -50px;
+            right: -50px;
+        }
+
+        /* Instrucción Flotante */
+        .floating-instruction {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 119, 182, 0.8);
+            color: #caf0f8;
+            padding: 10px 25px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <button class="nav-btn active" onclick="showTab(0)">(Stenhouse, 1984)</button>
+            <button class="nav-btn" onclick="showTab(1)">(Schwab, 1969)</button>
+            <button class="nav-btn" onclick="showTab(2)">Transposición didáctica</button>
+        </aside>
+
+        <main class="content-area">
+            <div class="bg-ornament"></div>
+
+            <div id="card-0" class="content-card active">
+                <span class="tech-tag">Modelo de Investigación</span>
+                <h2>(Stenhouse, 1984)</h2>
+                <p>En su obra <em>Investigación y desarrollo del currículum</em>, concibe el currículo formal como una hipótesis o una propuesta de estudio, no como un conjunto de objetivos terminales.</p>
+                <p>Es el docente quien, actuando como investigador en el aula, valida, modifica y mejora esa hipótesis a través de la práctica reflexiva. El currículo real es, por tanto, una instancia de toma de decisiones permanente.</p>
+            </div>
+
+            <div id="card-1" class="content-card">
+                <span class="tech-tag">Enfoque Práctico</span>
+                <h2>(Schwab, 1969)</h2>
+                <h3>Enfoque Práctico-Deliberativo</h3>
+                <p>Para Schwab, el currículo se construye mediante la deliberación sobre los cuatro lugares comunes (<em>commonplaces</em>): el docente, el estudiante, el contenido y el medio (entorno).</p>
+                <p>El currículo real es la solución a los problemas prácticos que surgen de la interacción de estos elementos, desestimando el protagonismo de la teoría abstracta.</p>
+            </div>
+
+            <div id="card-2" class="content-card">
+                <span class="tech-tag">Proceso Didáctico</span>
+                <h2>Transposición didáctica</h2>
+                <h3>(Yves Chevallard)</h3>
+                <p>El currículo real es el espacio donde se concreta la transposición didáctica: la transformación del saber sabio (el conocimiento académico) en saber enseñado (el contenido escolar), lo cual implica simplificación, reorganización y contextualización por parte del docente.</p>
+            </div>
+        </main>
+    </div>
+
+    <div class="floating-instruction">
+        Haga clic sobre los botones para ampliar la información.
+    </div>
+
+    <script>
+        function showTab(index) {
+            // Actualizar botones
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttons[index].classList.add('active');
+
+            // Actualizar contenido
+            const cards = document.querySelectorAll('.content-card');
+            cards.forEach(card => card.classList.remove('active'));
+
+            // Un pequeño delay para reiniciar la animación
+            setTimeout(() => {
+                cards[index].classList.add('active');
+            }, 10);
+        }
+    </script>
+</body>
+
+</html>
