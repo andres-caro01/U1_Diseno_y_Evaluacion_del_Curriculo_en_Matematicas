@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modelos de Evaluación - Dark Slider</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #00d2ff;
+            --secondary-blue: #3a7bd5;
+            --bg-dark: #0a0e17;
+            --card-dark: rgba(20, 28, 45, 0.85);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: radial-gradient(circle at center, #16213e, var(--bg-dark));
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .slider-wrapper {
+            width: 100%;
+            max-width: 700px; /* Un poco más ancho para el texto detallado */
+            position: relative;
+            padding: 20px;
+        }
+
+        .slider-container {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 15px;
+        }
+
+        .card {
+            background: var(--card-dark);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 50px 40px;
+            position: relative;
+            transition: all 0.4s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+            /* Tamaño uniforme */
+            height: 480px; 
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* Por si el contenido crece en móviles */
+        }
+
+        /* Estilización de scrollbar interna si fuera necesaria */
+        .card::-webkit-scrollbar { width: 5px; }
+        .card::-webkit-scrollbar-thumb { background: var(--primary-blue); border-radius: 10px; }
+
+        .card::before {
+            content: attr(data-step);
+            position: absolute;
+            top: -15px;
+            left: 30px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            width: 55px;
+            height: 55px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3rem;
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(0, 210, 255, 0.4);
+            z-index: 10;
+        }
+
+        h2 {
+            margin-top: 10px;
+            font-size: 1.6rem;
+            background: linear-gradient(to right, #fff, #a5c9ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        p, li {
+            font-weight: 300;
+            line-height: 1.6;
+            color: #b0b8c4;
+            font-size: 0.95rem;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            padding-left: 20px;
+            margin: 0;
+        }
+
+        .highlight {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 25px;
+        }
+
+        .nav-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-btn:hover {
+            background: var(--primary-blue);
+            box-shadow: 0 0 20px var(--primary-blue);
+            color: var(--bg-dark);
+        }
+
+        .progress-container {
+            display: flex;
+            gap: 10px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background: var(--primary-blue);
+            width: 25px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="slider-wrapper">
+    <div class="slider-container" id="slider">
+        
+        <div class="slide">
+            <div class="card" data-step="01">
+                <span class="subtitle">Tyler</span>
+                <h2>Modelo de evaluación por congruencia</h2>
+                <p>Evalúa la correspondencia entre los objetivos (fines) y los resultados (logros). Sigue la lógica del control de resultados.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="card" data-step="02">
+                <span class="subtitle">Stake</span>
+                <h2>Modelo de evaluación descriptiva y de juicio</h2>
+                <p>Robert E. Stake (1976) desarrolló el modelo de Evaluación Contradictoria o Countenance. Propone que la evaluación se centre en:</p>
+                <p><span class="highlight">Descripción:</span> documentar intenciones, observaciones y condiciones.</p>
+                <p><span class="highlight">Juicio:</span> valorar la calidad del programa.</p>
+                <p>Stake defiende la evaluación como un proceso para comprender el programa, no solo para medir su eficacia.</p>
+            </div>
+        </div>
+
+        <div class="slide">
+            <div class="card" data-step="03">
+                <span class="subtitle">Stufflebeam</span>
+                <h2>Modelo CIPP</h2>
+                <p>Stufflebeam y otros (1971) desarrollaron el modelo CIPP (Context, Input, Process, Product) orientado a la toma de decisiones y el mejoramiento.</p>
+                <ul>
+                    <li><span class="highlight">Contexto:</span> evalúa las necesidades y el ambiente para orientar objetivos.</li>
+                    <li><span class="highlight">Input:</span> evalúa los recursos, las estrategias y los diseños alternativos.</li>
+                    <li><span class="highlight">Proceso:</span> monitorea la implementación (el currículo real) para detectar fallas.</li>
+                    <li><span class="highlight">Producto:</span> mide el logro de los objetivos e impactos a largo plazo.</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="controls">
+        <button class="nav-btn" onclick="moveSlide(-1)">&#10094;</button>
+        <div class="progress-container">
+            <div class="dot active" onclick="currentSlide(0)"></div>
+            <div class="dot" onclick="currentSlide(1)"></div>
+            <div class="dot" onclick="currentSlide(2)"></div>
+        </div>
+        <button class="nav-btn" onclick="moveSlide(1)">&#10095;</button>
+    </div>
+</div>
+
+<script>
+    let currentIndex = 0;
+    const slider = document.getElementById('slider');
+    const dots = document.querySelectorAll('.dot');
+
+    function updateSlider() {
+        slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+        dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index === currentIndex);
+        });
+    }
+
+    function moveSlide(direction) {
+        currentIndex = (currentIndex + direction + 3) % 3;
+        updateSlider();
+    }
+
+    function currentSlide(index) {
+        currentIndex = index;
+        updateSlider();
+    }
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === "ArrowRight") moveSlide(1);
+        if (e.key === "ArrowLeft") moveSlide(-1);
+    });
+</script>
+
+</body>
+</html>
