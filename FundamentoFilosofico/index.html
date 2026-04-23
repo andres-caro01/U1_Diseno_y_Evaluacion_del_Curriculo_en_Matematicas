@@ -19,27 +19,22 @@
         @keyframes entranceSuperSlide {
             0% {
                 opacity: 0;
-                /* Comienza muy abajo, muy girado y borroso */
                 transform: translateY(300px) rotateX(-70deg) rotateY(30deg) scale(0.5);
                 filter: blur(20px);
             }
             40% {
                 opacity: 1;
-                /* Sube y gira al sentido contrario */
                 transform: translateY(-50px) rotateX(20deg) rotateY(-10deg) scale(1.1);
                 filter: blur(0px);
             }
             60% {
-                /* Rebote hacia abajo con inclinación */
                 transform: translateY(20px) rotateX(-10deg) rotateY(5deg) scale(0.95);
             }
             80% {
-                /* Pequeño rebote final hacia arriba */
                 transform: translateY(-5px) rotateX(5deg) scale(1.02);
             }
             100% {
                 opacity: 1;
-                /* Estado final normal */
                 transform: translateY(0) rotateX(0) rotateY(0) scale(1);
                 filter: blur(0px);
             }
@@ -53,14 +48,13 @@
             color: var(--text-main);
             font-family: 'Poppins', sans-serif;
             display: flex;
-            justify-content: right;
+            justify-content: center; /* Alineación del contenedor al centro para mejor balance */
             align-items: center;
             min-height: 100vh;
             margin: 0;
             padding: 20px;
-            /* Necesario para la perspectiva 3D de la animación */
             perspective: 1500px; 
-            overflow-x: hidden; /* Evita scrolls raros durante la animación */
+            overflow-x: hidden;
         }
 
         .container {
@@ -82,32 +76,27 @@
             overflow: hidden;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
             
-            /* --- Propiedades de Animación --- */
-            opacity: 0; /* Empieza invisible antes de la animación */
+            opacity: 0;
             animation-name: entranceSuperSlide;
-            animation-duration: 1.2s; /* Duración de la entrada */
-            animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); /* Curva de velocidad para rebote suave */
-            animation-fill-mode: forwards; /* Mantiene el estado final */
+            animation-duration: 1.2s;
+            animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+            animation-fill-mode: forwards;
             
-            /* Estilos preexistentes de hover */
             transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
-            will-change: transform, opacity; /* Optimización para el navegador */
+            will-change: transform, opacity;
         }
 
-        /* --- Retraso para la segunda tarjeta --- */
         .card:nth-child(2) {
             animation-delay: 0.3s;
         }
 
         .card:hover {
-            /* El hover ahora interactúa con el estado final de la animación */
             transform: translateY(-5px) scale(1.02);
             border-color: var(--accent-blue);
             box-shadow: 0 0 25px rgba(0, 210, 255, 0.3);
-            z-index: 10; /* Asegura que la tarjeta en hover esté por encima */
+            z-index: 10;
         }
 
-        /* Línea decorativa superior neón */
         .card::before {
             content: '';
             position: absolute;
@@ -126,6 +115,7 @@
             letter-spacing: 1px;
             text-transform: uppercase;
             text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+            text-align: left; /* Título a la izquierda */
         }
 
         p {
@@ -133,7 +123,7 @@
             line-height: 1.6;
             color: var(--text-dim);
             margin-bottom: 15px;
-            text-align: justify;
+            text-align: left; /* Párrafos a la izquierda */
         }
 
         strong {
@@ -141,7 +131,6 @@
             font-weight: 600;
         }
 
-        /* Efecto de brillo sutil en las esquinas */
         .card::after {
             content: '';
             position: absolute;
